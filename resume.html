@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fahad Ahmad — Resume</title>
+  <style>
+    /* ── Print Setup ── */
+    @page {
+      size: A4;
+      margin: 14mm 16mm 14mm 16mm;
+    }
+    @media print {
+      body { font-size: 9.2pt; }
+      .no-print { display: none !important; }
+      a { color: inherit !important; text-decoration: none !important; }
+      section { page-break-inside: avoid; }
+    }
+
+    /* ── Region visibility rules ── */
+    .us-eu-only, .gulf-only, .apac-only { display: none; }
+    body[data-region="us-eu"]  .us-eu-only { display: block; }
+    body[data-region="gulf"]   .gulf-only  { display: block; }
+    body[data-region="apac"]   .apac-only  { display: block; }
+    /* inline variants */
+    body[data-region="us-eu"]  .us-eu-inline  { display: inline; }
+    body[data-region="gulf"]   .gulf-inline   { display: inline; }
+    body[data-region="apac"]   .apac-inline   { display: inline; }
+    .us-eu-inline, .gulf-inline, .apac-inline { display: none; }
+
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 9.6pt;
+      color: #1a1a1a;
+      background: #fff;
+      line-height: 1.45;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 32px 28px;
+    }
+    a { color: #1d4ed8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Top accent bar ── */
+    .resume-accent-bar {
+      height: 5px;
+      background: linear-gradient(90deg, #1d4ed8 0%, #6d28d9 50%, #0891b2 100%);
+      margin: 0 -32px 24px;
+      border-radius: 0;
+    }
+    @media print {
+      .resume-accent-bar { margin: 0 -16mm 18px; }
+    }
+
+    /* ── Region Switcher (screen only) ── */
+    .no-print {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+    }
+    .no-print .switcher-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #0369a1;
+    }
+    .no-print .region-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .region-btn {
+      padding: 7px 18px;
+      font-size: 12.5px;
+      font-family: inherit;
+      border-radius: 6px;
+      border: 1.5px solid #93c5fd;
+      background: #fff;
+      color: #1e40af;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all .15s;
+    }
+    .region-btn:hover { background: #dbeafe; }
+    .region-btn.active { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+    .no-print .print-btn {
+      margin-left: auto;
+      background: #1d4ed8;
+      color: #fff;
+      border: none;
+      padding: 8px 22px;
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+    }
+    .no-print .print-btn:hover { background: #1e40af; }
+    .no-print small { width: 100%; margin-top: -6px; color: #6b7280; font-size: 11px; }
+
+    /* ── Header ── */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+      position: relative;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 80px; height: 2px;
+      background: linear-gradient(90deg, #1d4ed8, #6d28d9);
+    }
+    .h-left { display: flex; gap: 14px; align-items: flex-start; }
+    .h-name {
+      font-size: 24pt;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.8px;
+      line-height: 1.05;
+    }
+    .h-title {
+      font-size: 10pt;
+      color: #4b5563;
+      font-weight: 500;
+      margin-top: 5px;
+      letter-spacing: 0.02em;
+    }
+    .h-title strong { color: #1d4ed8; font-weight: 700; }
+    .h-contact {
+      text-align: right;
+      font-size: 8.4pt;
+      color: #374151;
+      line-height: 1.75;
+    }
+    .h-contact a { color: #374151; text-decoration: none; }
+    .h-contact a:hover { color: #1d4ed8; }
+
+    /* ── Photo block (Gulf / APAC) ── */
+    .photo-block {
+      width: 120px;
+      height: 140px;
+      border: 1.5px dashed #93c5fd;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: #f0f9ff;
+      font-size: 7.5pt;
+      color: #6b7280;
+      text-align: center;
+      line-height: 1.35;
+      padding: 4px;
+    }
+    .photo-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    /* ── Personal Details table (Gulf / APAC) ── */
+    .personal-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.8pt;
+      table-layout: fixed;
+    }
+    .personal-table td {
+      padding: 2px 8px 3px 0;
+      vertical-align: top;
+      line-height: 1.6;
+      word-break: normal;
+    }
+    .personal-table td:first-child {
+      font-weight: 600;
+      color: #1e3a5f;
+      width: 130px;
+      white-space: nowrap;
+    }
+    .personal-table td:last-child { color: #374151; word-wrap: break-word; }
+
+    /* ── Section ── */
+    section { margin-top: 13px; }
+    .sec-title {
+      font-size: 8.2pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      color: #1e3a5f;
+      padding: 0 0 3px 9px;
+      margin-bottom: 8px;
+      border-left: 3px solid #1d4ed8;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* ── Summary ── */
+    .summary {
+      font-size: 9.3pt;
+      color: #374151;
+      line-height: 1.5;
+    }
+
+    /* ── Experience ── */
+    .job { margin-bottom: 10px; padding-left: 10px; border-left: 2px solid #e5e7eb; transition: border-color .15s; }
+    .job:hover { border-left-color: #1d4ed8; }
+    .job:last-child { margin-bottom: 0; }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1px;
+    }
+    .job-title {
+      font-weight: 700;
+      font-size: 9.8pt;
+      color: #0f172a;
+    }
+    .job-period {
+      font-size: 8.3pt;
+      color: #fff;
+      background: #1d4ed8;
+      padding: 1px 7px;
+      border-radius: 3px;
+      white-space: nowrap;
+      margin-left: 8px;
+      font-weight: 500;
+    }
+    .job-meta {
+      font-size: 8.6pt;
+      color: #4b5563;
+      margin-bottom: 4px;
+      margin-top: 1px;
+    }
+    .job-meta .company { font-weight: 700; color: #1d4ed8; }
+    .job-meta .location { color: #6b7280; margin-left: 6px; }
+    ul.bullets {
+      padding-left: 13px;
+      list-style: disc;
+    }
+    ul.bullets li {
+      font-size: 8.9pt;
+      color: #374151;
+      margin-bottom: 2.5px;
+      line-height: 1.45;
+    }
+    ul.bullets li strong { color: #0f172a; }
+
+    /* ── Projects ── */
+    .project {
+      margin-bottom: 7px;
+      padding: 6px 9px;
+      border: 1px solid #f1f5f9;
+      border-radius: 5px;
+      background: #fafbff;
+    }
+    .proj-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .proj-name {
+      font-weight: 700;
+      font-size: 9.3pt;
+      color: #1e3a5f;
+    }
+    .proj-label {
+      font-size: 8.2pt;
+      color: #9ca3af;
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+    .proj-desc {
+      font-size: 8.7pt;
+      color: #4b5563;
+      margin-top: 2px;
+      line-height: 1.5;
+    }
+    .proj-tech {
+      font-size: 8pt;
+      color: #6b7280;
+      margin-top: 3px;
+    }
+    .proj-tech span {
+      font-style: normal;
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 7.8pt;
+    }
+
+    /* ── Skills ── */
+    .skills-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #f1f5f9;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .skills-table tr:nth-child(even) td { background: #f8fafc; }
+    .skills-table tr:nth-child(odd)  td { background: #ffffff; }
+    .skills-table td {
+      vertical-align: top;
+      padding: 4px 8px;
+      font-size: 8.8pt;
+      line-height: 1.5;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .skills-table tr:last-child td { border-bottom: none; }
+    .skills-table td:first-child {
+      font-weight: 700;
+      color: #1e3a5f;
+      white-space: nowrap;
+      width: 140px;
+      border-right: 2px solid #dbeafe;
+    }
+    .skills-table td:last-child { color: #374151; }
+
+    /* ── Education ── */
+    .edu-block {
+      padding: 8px 10px;
+      border: 1px solid #dbeafe;
+      border-radius: 5px;
+      background: #fafbff;
+      border-left: 3px solid #1d4ed8;
+    }
+    .edu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .edu-deg { font-weight: 700; font-size: 9.4pt; color: #0f172a; }
+    .edu-period {
+      font-size: 8.2pt;
+      color: #fff;
+      background: #6d28d9;
+      padding: 1px 7px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .edu-uni { font-size: 9pt; color: #1d4ed8; font-weight: 600; margin-top: 2px; }
+    .edu-detail { font-size: 8.4pt; color: #6b7280; margin-top: 3px; line-height: 1.5; }
+
+    /* ── Resume footer ── */
+    .resume-footer {
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      font-size: 7.8pt;
+      color: #9ca3af;
+      letter-spacing: 0.03em;
+    }
+  </style>
+</head>
+<body data-region="us-eu">
+
+  <div class="resume-accent-bar"></div>
+
+  <!-- ── Region Switcher (hidden when printing) ── -->
+  <div class="no-print">
+    <span class="switcher-label">📄 Resume Format:</span>
+    <div class="region-btns">
+      <button class="region-btn active" onclick="setRegion('us-eu',   this)">🇺🇸 US / EU &nbsp;(Remote)</button>
+      <button class="region-btn"        onclick="setRegion('gulf',    this)">🇦🇪 Gulf &nbsp;(UAE · Saudi · Qatar)</button>
+      <button class="region-btn"        onclick="setRegion('apac',    this)">🇲🇾 Malaysia / APAC</button>
+    </div>
+    <button class="print-btn" onclick="window.print()">⬇ Save as PDF</button>
+  </div>
+
+  <!-- ── Header ── -->
+  <header>
+    <div class="h-left">
+
+      <!-- Photo: shown only for Gulf + APAC -->
+      <div class="photo-block gulf-only apac-only" style="display:none">
+        <img src="profile.png" alt="Fahad Ahmad profile photo" />
+      </div>
+
+      <div>
+        <div class="h-name">Fahad Ahmad</div>
+        <div class="h-title">Backend, Cloud &amp; ERP Systems Engineer</div>
+      </div>
+    </div>
+    <div class="h-contact">
+      <div><a href="mailto:Fahadahmed130@gmail.com">Fahadahmed130@gmail.com</a></div>
+      <div><a href="tel:+923224030777">+92 322 4030777</a></div>
+      <div><a href="https://www.linkedin.com/in/fahad-ahmad-594276209/" target="_blank">linkedin.com/in/fahad-ahmad-594276209</a></div>
+      <div><a href="https://github.com/fahm0012" target="_blank">github.com/fahm0012</a></div>
+      <!-- US/EU: remote line -->
+      <div class="us-eu-only">Lahore, Pakistan</div>
+      <!-- Gulf: relocation line -->
+      <div class="gulf-only" style="display:none">Lahore, Pakistan</div>
+      <!-- APAC: relocation line -->
+      <div class="apac-only" style="display:none">Lahore, Pakistan</div>
+    </div>
+  </header>
+
+  <!-- ── Personal Details (Gulf + APAC only) ── -->
+  <section class="gulf-only apac-only" style="display:none">
+    <div class="sec-title">Personal Details</div>
+    <table class="personal-table">
+      <tr>
+        <td>Nationality</td>
+        <td>Pakistani</td>
+      </tr>
+      <tr>
+        <td>Date of Birth</td>
+        <td>10 September 1998</td>
+      </tr>
+      <tr>
+        <td>Marital Status</td>
+        <td>Married</td>
+      </tr>
+      <tr>
+        <td>Languages</td>
+        <td>English (Fluent), Urdu (Native)</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- ── Summary ── -->
+  <section>
+    <div class="sec-title">Summary</div>
+    <p class="summary">
+      Backend and cloud engineer with 4+ years of experience designing and shipping production ERP systems. Built 10+ modules from scratch across finance, logistics, and workshop operations, improved uptime by 95%, and reduced cloud cost by 60%. Strong in Java, Spring Boot, Angular, SQL optimisation, async processing, AWS, and Azure.
+    </p>
+  </section>
+
+  <!-- ── Experience ── -->
+  <section>
+    <div class="sec-title">Experience</div>
+
+    <!-- Wavelet -->
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Software Engineer II</div>
+        <div class="job-period">Jul 2022 – Present</div>
+      </div>
+      <div class="job-meta">
+        <span class="company">Wavelet Solutions Sdn Bhd</span>
+        <span class="location">Subang Jaya, Selangor, Malaysia &nbsp;·&nbsp; Full-time (Remote from Lahore)</span>
+      </div>
+      <ul class="bullets">
+        <li>Solely designed and shipped <strong>10+ production ERP applets from scratch</strong> for enterprise clients including <strong>Senheng</strong> (Malaysia's largest electronics retailer) — <strong>Finance Suite:</strong> Sales Order, Purchase Order, GRN, Receipt Voucher, Cashbook, Deposit; <strong>Logistics:</strong> PDG Supplier &amp; Driver Delivery Orders; <strong>Financial Ops:</strong> Bank Reconciliation Engine; <strong>Workshop:</strong> Car Workshop — using <strong>Angular (NgRx) + Java Spring Boot</strong>, reducing manual data-entry errors by <strong>80%</strong>.</li>
+        <li>Architected cloud-native ERP platforms (EMP &amp; BLG) on <strong>AWS</strong>; implemented <strong>AWS RDS Proxy</strong> to sustain <strong>10× concurrent DB connections</strong> at peak load while maintaining security compliance.</li>
+        <li>Automated disaster recovery pipelines, cutting critical system downtime by <strong>95%</strong> and achieving <strong>99.99% availability</strong>.</li>
+        <li>Built an intelligent <strong>bank reconciliation engine</strong> with rule-based and fuzzy-matching algorithms, eliminating manual reconciliation for thousands of daily financial transactions.</li>
+        <li>Implemented <strong>async transaction processors</strong> with multi-threaded Java pipelines and queue-based de-duplication, delivering <strong>50% throughput improvement</strong> with zero data loss.</li>
+        <li>Optimised complex <strong>SQL stored procedures</strong> and applied the Unit of Work pattern, guaranteeing 100% data consistency across financial ledgers.</li>
+        <li>Achieved <strong>85%+ JUnit test coverage</strong> across all modules, reducing post-deployment bugs by 60%.</li>
+      </ul>
+    </div>
+
+    <!-- Dev Cynx -->
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Cloud Engineer</div>
+        <div class="job-period">Mar 2023 – Feb 2026</div>
+      </div>
+      <div class="job-meta">
+        <span class="company">Dev Cynx</span>
+        <span class="location">Lahore, Pakistan &nbsp;&middot;&nbsp; Hybrid &nbsp;&middot;&nbsp; Part-time (Concurrent with Wavelet)</span>
+      </div>
+      <ul class="bullets">
+        <li>Engineered secure <strong>Azure infrastructure</strong> for key clients, reducing downtime by <strong>80%</strong> and achieving <strong>99.9% availability</strong>.</li>
+        <li>Cut monthly Azure spend by <strong>60%+</strong> via resource right-sizing, Reserved Instances, and automated shutdown policies.</li>
+        <li>Managed containerised workloads with <strong>Docker &amp; Kubernetes</strong>, increasing deployment frequency by <strong>70%</strong>.</li>
+        <li>Set up proactive monitoring and alerting using <strong>Azure Monitor</strong> and <strong>Log Analytics</strong>, enabling resolution before customer impact.</li>
+      </ul>
+    </div>
+
+    <!-- MEREKA -->
+    <div class="job">
+      <div class="job-header">
+        <div class="job-title">Full-Stack Developer Intern</div>
+        <div class="job-period">Nov 2021 – Feb 2022</div>
+      </div>
+      <div class="job-meta">
+        <span class="company">MEREKA</span>
+        <span class="location">Remote &nbsp;·&nbsp; Internship</span>
+      </div>
+      <ul class="bullets">
+        <li>Built high-performance web apps with <strong>Angular, TypeScript &amp; SASS</strong>, achieving &lt;2 s page loads and +20% mobile retention.</li>
+        <li>Developed backend services with <strong>Node.js &amp; Firebase</strong> secured via Auth0 for 5,000+ users; built reusable UI library that cut frontend dev time by 35%.</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ── Key Projects ── -->
+  <section>
+    <div class="sec-title">Key Projects</div>
+
+    <div class="project">
+      <div class="proj-header">
+        <div class="proj-name">ERP Finance &amp; Accounting Suite — Wavelet Solutions Sdn Bhd</div>
+        <div class="proj-label">2023 – 2025</div>
+      </div>
+      <div class="proj-desc">Built 6 accounting applets solo: Sales Order, Purchase Order, Purchase GRN, Receipt Voucher, Cashbook, Deposit — each with approval workflows, audit trails, role-based access, and full ERP ledger integration.</div>
+      <div class="proj-tech"><span>Angular NgRx · Java · Spring Boot · MySQL · Liquibase · AWS RDS</span></div>
+    </div>
+
+    <div class="project">
+      <div class="proj-header">
+        <div class="proj-name">Bank Reconciliation Engine — Wavelet Solutions Sdn Bhd</div>
+        <div class="proj-label">2022 – 2023</div>
+      </div>
+      <div class="proj-desc">Automated reconciliation of bank statements against ledger entries using rule-based + fuzzy-matching algorithms with async multi-threaded processors; eliminated manual reconciliation for thousands of daily transactions.</div>
+      <div class="proj-tech"><span>Java · Spring Boot · Async Processing · SQL Optimisation · Angular NgRx</span></div>
+    </div>
+
+    <div class="project">
+      <div class="proj-header">
+        <div class="proj-name">PDG Delivery Order System (Senheng) — Wavelet Solutions Sdn Bhd</div>
+        <div class="proj-label">2023 – 2024</div>
+      </div>
+      <div class="proj-desc">Built two standalone logistics applets for Senheng (Malaysia's largest electronics retailer): Supplier DO (order confirmation, despatch scheduling) and Driver DO (job assignment, route confirmation, proof of delivery).</div>
+      <div class="proj-tech"><span>Angular NgRx · Java · Spring Boot · Multi-role Access · AWS</span></div>
+    </div>
+
+    <div class="project">
+      <div class="proj-header">
+        <div class="proj-name">Crime Detection in Surveillance Videos — Final Year Project</div>
+        <div class="proj-label">Mar 2021 – Mar 2022</div>
+      </div>
+      <div class="proj-desc">Led 3-member team; designed real-time anomaly detection system using GRN and TimeSformer deep learning models on CCTV footage with live security alerts.</div>
+      <div class="proj-tech"><span>Python · Deep Learning · TimeSformer · GRN · OpenCV</span></div>
+    </div>
+
+  </section>
+
+  <!-- ── Skills ── -->
+  <section>
+    <div class="sec-title">Technical Skills</div>
+    <table class="skills-table">
+      <tr>
+        <td>Languages</td>
+        <td>Java, Python, TypeScript, JavaScript, C++, Haskell, R</td>
+      </tr>
+      <tr>
+        <td>Frameworks</td>
+        <td>Spring Boot, Angular (NgRx), React, Node.js, Flask, D3.js</td>
+      </tr>
+      <tr>
+        <td>Cloud &amp; DevOps</td>
+        <td>AWS (RDS Proxy, S3, EC2), Microsoft Azure, Azure Monitor, Docker, Kubernetes, CI/CD</td>
+      </tr>
+      <tr>
+        <td>Databases</td>
+        <td>MySQL, Oracle, MongoDB, Firebase, Liquibase</td>
+      </tr>
+      <tr>
+        <td>Data &amp; ML</td>
+        <td>scikit-learn, NumPy, Pandas, OpenCV, Statistical Modelling, Data Visualisation, Tableau</td>
+      </tr>
+      <tr>
+        <td>Practices</td>
+        <td>Microservices, RESTful APIs, Unit of Work, SOLID, OAuth 2.0, JUnit (85%+ coverage), Zero-Downtime Deploy, OOP &amp; Design Patterns</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- ── Education ── -->
+  <section>
+    <div class="sec-title">Education</div>
+    <div class="edu-block">
+      <div class="edu-header">
+        <div class="edu-deg">B.Sc. Advanced Computer Science &mdash; Minor: Data Science</div>
+        <div class="edu-period">Jul 2019 &ndash; Jul 2022</div>
+      </div>
+      <div class="edu-uni">Monash University, Malaysia</div>
+      <div class="edu-detail">GPA: 3.6 / 4.0 &nbsp;&middot;&nbsp; Algorithms &amp; Data Structures &middot; Parallel Computing &middot; Machine Learning &middot; Computer Vision &middot; Functional Programming &middot; Theory of Computation</div>
+    </div>
+  </section>
+
+  <div class="resume-footer">Portfolio: fahad-ahmad.dev &nbsp;·&nbsp; LinkedIn: linkedin.com/in/fahad-ahmad-594276209 &nbsp;·&nbsp; GitHub: github.com/fahm0012</div>
+
+  <script>
+    // ── Region switcher
+    function setRegion(region, btn) {
+      document.body.setAttribute('data-region', region);
+
+      // Update button active states
+      document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Handle multi-class elements (gulf-only apac-only = show for both)
+      document.querySelectorAll('[class*="-only"]').forEach(el => {
+        const classes = Array.from(el.classList);
+        const shouldShow = classes.some(c => c === region + '-only');
+        el.style.display = shouldShow ? (el.tagName === 'SPAN' ? 'inline' : 'block') : 'none';
+      });
+    }
+
+    // Initialise on load — default to us-eu
+    window.addEventListener('DOMContentLoaded', () => {
+      setRegion('us-eu', document.querySelector('.region-btn'));
+    });
+  </script>
+
+</body>
+</html>
